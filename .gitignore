@@ -89,6 +89,9 @@ ENV/
 # Rope project settings
 .ropeproject
 
-# Config files
-narcissus.conf
+# Config files and test examples
+*.json
+
+# Chatterbot database
+database.db
 
