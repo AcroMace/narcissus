@@ -12,7 +12,7 @@ app.on('window-all-closed', function() {
 
 app.on('ready', function() {
   console.log('ready');
-  var subpy = require('child_process').spawn('python', ['narcissus.py']);
+  var subpy = require('child_process').spawn('python', ['main.py']);
   mainWindow = new BrowserWindow({
     width: 800,
     height: 600
