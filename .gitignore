@@ -89,9 +89,18 @@ ENV/
 # Rope project settings
 .ropeproject
 
+##
+# Custom configurations
+##
+
 # Config files and test examples
-*.json
+config.json
+messages.json
 
 # Chatterbot database
 database.db
+
+# NPM
+
+node_modules
 

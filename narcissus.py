@@ -1,8 +1,12 @@
+from flask import Flask, render_template
 from chatterbot import ChatBot
 from chatterbot.trainers import ListTrainer
 import requests
 import json
 from pprint import pprint
+
+app = Flask(__name__)
+chatbot = ChatBot('Narcissus')
 
 # Get the config file object
 def get_config():
@@ -51,7 +55,7 @@ def parse_conversation(user_id, conversation):
         message_sender = message['from']['id']
         # Add the tuple if the above conditions match
         if last_message_sender != user_id and message_sender == user_id:
-            message_pairs.append((last_message_content, message_content))
+            message_pairs.append((last_message_content.encode('utf-8'), message_content.encode('utf-8')))
         last_message_content = message_content
         last_message_sender = message_sender
     return message_pairs
@@ -71,6 +75,18 @@ def train_chatbot(chatbot, message_tuples):
         other_person_message, your_message = tuple
         chatbot.train([other_person_message, your_message])
 
+@app.route("/")
+def hello():
+    # return render_template('index.html')
+    return "Hello"
+
+@app.route("/chat/<string:query>")
+def get_response(query):
+    response = chatbot.get_response(query)
+    # Weird hack - trying to serialize with str(response) doesn't work although it seems like
+    #              it should be doing the same thing from the source code
+    return response.serialize()['text']
+
 if __name__ == "__main__":
     config = get_config()
     # User ID of the authorized user
@@ -79,24 +95,25 @@ if __name__ == "__main__":
     facebook_token = config['facebook_token']
 
     # Create the chat bot
-    chatbot = ChatBot('Narcissus')
-    chatbot.set_trainer(ListTrainer)
+    # chatbot.set_trainer(ListTrainer)
 
     # Retrieve the JSON for the chat data
     # chat_data = get_chat_data(facebook_token)
     # print(chat_data)
 
     # Get the JSON data from a local file
-    example_data = get_example_chat_data()
+    # example_data = get_example_chat_data()
     # Get (other_person, your_reply) tuples
-    message_tuples = parse_messages_json(facebook_id, example_data)
+    # message_tuples = parse_messages_json(facebook_id, example_data)
 
     # Train the model
-    train_chatbot(chatbot, message_tuples)
+    # train_chatbot(chatbot, message_tuples)
 
     # Set it to read only
     chatbot = ChatBot('Narcissus', read_only=True)
 
-    while(True):
-        your_input = raw_input("Your message: ")
-        print(chatbot.get_response(your_input))
+    # while(True):
+    #     your_input = raw_input("Your message: ")
+    #     print(chatbot.get_response(your_input))
+
+    app.run(host='127.0.0.1', port=5000)

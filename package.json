@@ -1,0 +1,12 @@
+{
+  "name": "narcissus",
+  "version": "1.0.0",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "dependencies": {
+    "electron": "^1.3.4",
+    "jquery": "^3.1.1"
+  }
+}
