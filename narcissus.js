@@ -116,3 +116,5 @@ class Narcissus {
         this.brain.save();
     }
 }
+
+module.exports = Narcissus;
