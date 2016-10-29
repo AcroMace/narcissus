@@ -2,9 +2,11 @@
 
 const lunr = require('lunr');
 const fs = require('fs');
+const Message = require('./message.js');
 
-const lunrIndexFile = 'lunrIndex.json';
-const messagesFile = 'indexedMessages.json';
+const MAX_REPLIES_CONSIDERED = 3;
+const LUNR_INDEX_FILE = 'lunrIndex.json';
+const MESSAGES_FILE = 'indexedMessages.json';
 
 // A wrapper class for generating messages using Lunr
 
@@ -12,27 +14,27 @@ class BotBrain {
 
   constructor() {
     // Get a reference to the lunr instance
-    this.lunrIndex = this._getLunrInstance();
-    this.messages = this._getMessages();
+    this._lunrIndex = this._getLunrInstance();
+    this._messages = this._getMessages();
   }
 
-  // Train the bot to reply with the specified message given the specified prompt
-  train(prompt, reply) {
+  // Train the bot to reply given the Message object
+  train(message) {
     var message = {
-      prompt: prompt,
-      reply: reply,
-      id: Math.floor(Math.random() * 1000)
+      id: message.id,
+      prompt: message.prompt,
+      reply: message.reply,
     };
-    this.messages[message.id] = message;
-    this.lunrIndex.add(message);
+    this._messages[message.id] = message; // Save the message
+    this._lunrIndex.add(message); // Index the message
   }
 
   // Get a reply from the bot given a prompt
   getReply(prompt) {
     // Just get the top 3 search results and randomly choose one of the replies
     // using the score for each reply as its weight
-    const searchResults = this.lunrIndex.search(prompt);
-    const replies = (searchResults.length > 3) ? searchResults.splice(0, 3) : searchResults;
+    const searchResults = this._lunrIndex.search(prompt);
+    const replies = searchResults.slice(0, MAX_REPLIES_CONSIDERED);
     const totalScore = replies.map(obj => obj.score).reduce((a, b) => a + b, 0);
     const randomScore = Math.random() * totalScore;
     // If nothing is found, return a question mark
@@ -44,11 +46,11 @@ class BotBrain {
     for (const reply of replies) {
       currentScore += reply.score;
       if (randomScore <= currentScore) {
-        return this.messages[reply.ref];
+        return this._messages[reply.ref];
       }
     }
     // If there's some weird floating point thing, return the last message
-    return this.messages[replies[replies.length - 1].ref];
+    return this._messages[replies[replies.length - 1].ref];
   }
 
   // Save the brain after training
@@ -62,7 +64,7 @@ class BotBrain {
   _getLunrInstance() {
     try {
       // Parse the JSON and send it back
-      let instance = lunr.Index.load(JSON.parse(fs.readFileSync(lunrIndexFile, 'utf8')));
+      let instance = lunr.Index.load(JSON.parse(fs.readFileSync(LUNR_INDEX_FILE, 'utf8')));
       console.log('Found old Lunr instance');
       return instance;
     } catch (err) {
@@ -83,14 +85,14 @@ class BotBrain {
 
   // Save the Lunr index to a file
   _saveLunrIndex() {
-    this._saveFile(lunrIndexFile, this.lunrIndex);
+    this._saveFile(LUNR_INDEX_FILE, this._lunrIndex);
   }
 
   // Get the messages from the saved file
   // Returns an empty object if there were no previous saved messages
   _getMessages() {
     try {
-      return JSON.parse(fs.readFileSync(messagesFile, 'utf8'));
+      return JSON.parse(fs.readFileSync(MESSAGES_FILE, 'utf8'));
     } catch (err) {
       return {};
     }
@@ -98,7 +100,7 @@ class BotBrain {
 
   // Save the indexed messages to a file
   _saveMessages() {
-    this._saveFile(messagesFile, this.messages);
+    this._saveFile(MESSAGES_FILE, this._messages);
   }
 
   // Serialize the object and save it with the file name
@@ -114,3 +116,5 @@ class BotBrain {
   }
 
 }
+
+module.exports = BotBrain;
