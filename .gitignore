@@ -104,3 +104,7 @@ database.db
 
 node_modules
 
+# Saved messages
+indexedMessages.json
+lunrIndex.json
+
