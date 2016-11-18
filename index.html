@@ -8,12 +8,24 @@
   </head>
   <body>
 
-    <div class="container">
-      <p>Testing Electron</p>
-      <input id="input-message" class="form-control" type=text placeholder="Hey">
-      <div id="send-button" class="btn btn-success"><h3>Send</h3></div>
+    <div class="messages-view">
+
+      <!-- Contains all the message bubbles -->
+      <div id="messages-container">
+        <div id="messages"></div>
+      </div>
+
+      <!-- Where the user can type messages and send them -->
+      <div id="message-bar" class="input-group">
+        <input id="input-message" class="form-control" type="text" placeholder="Hey">
+        <span class="input-group-btn">
+          <button id="send-button" class="btn btn-success" type="button">Send</button>
+        </span>
+      </div>
+
     </div>
 
+    <!-- Enable using $ for jQuery (resolves Electron conflict) -->
     <script type="text/javascript">window.$ = window.jQuery = require('jquery');</script>
     <script type="text/javascript" src="index.js"></script>
 
