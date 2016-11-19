@@ -1,53 +1,22 @@
 /* Window */
 
-html, body, .messages-view {
+html, body, #messages-view {
   overflow: hidden;
   height: 100%;
   width: 100%;
 }
 
-.messages-view {
-  display: flex;
-  flex-direction: column;
-  align-content: stretch;
+/* Login view */
+
+#login-view {
+  width: 100%;
+  height: 100%;
+  background-color: #fee;
+  visibility: hidden;
 }
 
-#messages-container {
-  flex: 1;
-  overflow: scroll;
-}
+/* Training view */
 
-#message-bar {
-  background-color: #CFD8DC;
-  padding: 0.5em;
-  float: bottom;
-}
-
-/* Chat bubbles */
-
-.chat-bubble-other-container {
-  text-align: left;
-}
-
-.chat-bubble-self-container {
-  text-align: right;
-}
-
-.chat-bubble {
-  text-align: left;
-  display: inline-block;
-  max-width: 64%;
-  margin: 0.5em;
-  padding: 1em;
-  border-radius: 1em;
-}
-
-.chat-bubble-other {
-  color: #000;
-  background-color: #CFD8DC;
-}
-
-.chat-bubble-self {
-  color: #E1F5FE;
-  background-color: #03A9F4;
+#training-view {
+  visibility: hidden;
 }

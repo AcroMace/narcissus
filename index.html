@@ -3,26 +3,30 @@
   <head>
     <title>Narcissus</title>
     <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="css/messagesView.css" rel="stylesheet" media="screen">
     <link href="css/narcissus.css" rel="stylesheet" media="screen">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
   </head>
   <body>
 
     <!-- Page to login to Facebook -->
-    <div class="login-view">
-
+    <div id="login-view">
+      <button id="login-button" class="btn btn-success" type="button">Login</button>
+      <div id="fb-name"></div>
+      <div id="fb-id"></div>
+      <img id="fb-dp"></div>
     </div>
 
     <!-- Page to view the bot being trained -->
-    <div class="training-view">
+    <div id="training-view">
     </div>
 
     <!-- Page to send messages to the bot -->
-    <div class="messages-view">
+    <div id="messages-view">
 
       <!-- Contains all the message bubbles -->
-      <div id="messages-container">
-        <div id="messages"></div>
+      <div id="messages-list-container">
+        <div id="messages-list"></div>
       </div>
 
       <!-- Where the user can type messages and send them -->
@@ -38,6 +42,8 @@
     <!-- Enable using $ for jQuery (resolves Electron conflict) -->
     <script type="text/javascript">window.$ = window.jQuery = require('jquery');</script>
     <script type="text/javascript" src="index.js"></script>
+    <script type="text/javascript" src="loginView.js"></script>
+    <script type="text/javascript" src="messageView.js"></script>
 
   </body>
 </html>

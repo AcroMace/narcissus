@@ -1,0 +1,48 @@
+/* Messages view */
+
+#messages-view {
+  visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  align-content: stretch;
+}
+
+#messages-list-container {
+  flex: 1;
+  overflow: scroll;
+}
+
+#message-bar {
+  background-color: #CFD8DC;
+  padding: 0.5em;
+  float: bottom;
+}
+
+/* Chat bubbles */
+
+.chat-bubble-other-container {
+  text-align: left;
+}
+
+.chat-bubble-self-container {
+  text-align: right;
+}
+
+.chat-bubble {
+  text-align: left;
+  display: inline-block;
+  max-width: 64%;
+  margin: 0.5em;
+  padding: 1em;
+  border-radius: 1em;
+}
+
+.chat-bubble-other {
+  color: #000;
+  background-color: #CFD8DC;
+}
+
+.chat-bubble-self {
+  color: #E1F5FE;
+  background-color: #03A9F4;
+}
