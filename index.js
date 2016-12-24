@@ -26,7 +26,7 @@ $(document).ready(function() {
 
   // Initially just show the login view
   function init() {
-    showView(views.login);
+    showView(views.messages);
   }
 
   init();

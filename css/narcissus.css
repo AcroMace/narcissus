@@ -6,17 +6,20 @@ html, body, #messages-view {
   width: 100%;
 }
 
-/* Login view */
+/* Instructions view */
 
-#login-view {
+#instructions-view {
   width: 100%;
   height: 100%;
-  background-color: #fee;
+  background-color: #E8EAF6;
   visibility: hidden;
 }
 
 /* Training view */
 
 #training-view {
+  width: 100%;
+  height: 100%;
+  background-color: #E8EAF6;
   visibility: hidden;
 }

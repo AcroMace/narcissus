@@ -51,6 +51,7 @@ jspm_packages
 # Config files and test examples
 config.json
 messages.json
+example_message.html
 
 # Saved messages
 indexedMessages.json
