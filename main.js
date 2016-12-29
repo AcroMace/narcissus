@@ -1,5 +1,10 @@
 'use strict';
 
+/**
+ * This is the server Javascript file used by Electron.
+ * The client-side Javascript files are in the js folder.
+ */
+
 const electron = require('electron');
 
 const app = electron.app;
