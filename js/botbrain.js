@@ -4,7 +4,7 @@ const lunr = require('lunr');
 const fs = require('fs');
 const Message = require('./message.js');
 
-const MAX_REPLIES_CONSIDERED = 3;
+const MAX_REPLIES_CONSIDERED = 5;
 const LUNR_INDEX_FILE = 'lunrIndex.json';
 const MESSAGES_FILE = 'indexedMessages.json';
 
@@ -70,6 +70,7 @@ class BotBrain {
     } catch (err) {
       // Couldn't read the file or it wasn't JSON - create a new Lunr instance
       console.log('Indexed messages not found or it was not JSON - creating new instance.');
+      console.log(err);
       return this._createLunrNewInstance();
     }
   }
