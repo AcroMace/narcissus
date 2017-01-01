@@ -4,7 +4,7 @@ const lunr = require('lunr');
 const fs = require('fs');
 const Message = require('./message.js');
 
-const MAX_REPLIES_CONSIDERED = 5;
+const MAX_REPLIES_CONSIDERED = 100;
 const LUNR_INDEX_FILE = 'lunrIndex.json';
 const MESSAGES_FILE = 'indexedMessages.json';
 

@@ -26,12 +26,12 @@ app.on('ready', function() {
   });
   mainWindow.loadURL(`file://${__dirname}/index.html`)
 
-  // Start OAuth flow with Facebook when requested
-  ipc.on('facebook-login-requested', function() {
+  // Select the directory with the exported data from Facebook
+  ipc.on('select-archive-directory', (event, arg) => {
     dialog.showOpenDialog(mainWindow, {
       properties: ['openDirectory']
     }, function (directories) {
-      console.log(directories);
+      event.sender.send('selected-directory', directories);
     });
   });
 

@@ -73,7 +73,7 @@ class MessagesParser {
       ontext: function (text) {
         self._handleText(self, text);
       }
-    }, { decodeEntities: true });
+    }, { decodeEntities: false });
 
     // Read the messages file
     // htmlparser2 supports streaming - this should probably use a stream instead

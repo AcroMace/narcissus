@@ -18,8 +18,8 @@ class Narcissus {
     }
 
     // Train the bot with Facebook data
-    trainWithFacebookMessages(archiveDirectory) {
-        let messagesParser = new MessagesParser('../messages.htm', ['Andy Cho']);
+    trainWithFacebookMessages(dataExportDirectory) {
+        let messagesParser = new MessagesParser(dataExportDirectory + '/html/messages.htm', ['Andy Cho']);
         this._trainChatbot(messagesParser.parse());
     }
 

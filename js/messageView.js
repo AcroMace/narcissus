@@ -1,6 +1,4 @@
 $(document).ready(function() {
-  let narcissus = new (require('./js/narcissus.js'))(); // Create a Narcissus instance
-
   const MAX_WAIT_BEFORE_REPLY = 1600; // Amount of time to wait before showing reply
   const NEW_BUBBLE_SCROLL_TIME = 300; // Amount of time it takes to scroll for a new bubble
 

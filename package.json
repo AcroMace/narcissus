@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron --js-flags=\"--stack-size=32000\" ."
   },
   "dependencies": {
     "electron": "^1.3.4",

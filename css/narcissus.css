@@ -6,13 +6,17 @@ html, body, #messages-view {
   width: 100%;
 }
 
-/* Instructions view */
+/* Directory selection view */
 
-#instructions-view {
+#directory-selection-view {
   width: 100%;
   height: 100%;
   background-color: #E8EAF6;
   visibility: hidden;
+}
+
+#directory-selection-instructions {
+  font-size: 1.6em;
 }
 
 /* Training view */
