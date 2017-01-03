@@ -43,10 +43,20 @@ class BotBrain {
     const replies = searchResults.slice(0, MAX_REPLIES_CONSIDERED);
     const totalScore = replies.map(obj => obj.score).reduce((a, b) => a + b, 0);
     const randomScore = Math.random() * totalScore;
-    // If nothing is found, return a question mark
+
+    // If nothing is found, try again with the longest word
     if (replies.length === 0) {
-      return '?';
+      // Sort words by descending word length and try to find some reply
+      const words = prompt.split(' ').sort((a, b) => b.length - a.length);
+      for (const word in words) {
+        const replyForWord = this.getReply(word);
+        if (replyForWord !== null) {
+          return replyForWord;
+        }
+      }
+      return null;
     }
+
     // Get a weighted random reply
     var currentScore = 0;
     for (const reply of replies) {
@@ -55,6 +65,7 @@ class BotBrain {
         return this._messages[reply.ref];
       }
     }
+
     // If there's some weird floating point thing, return the last message
     return this._messages[replies[replies.length - 1].ref];
   }
