@@ -1,4 +1,8 @@
-// A representation of a message
+'use strict';
+
+/**
+ * A representation of a message
+ */
 
 class Message {
 

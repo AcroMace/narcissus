@@ -1,5 +1,9 @@
 'use strict';
 
+/**
+ * Used to route between the pages
+ */
+
 class Router {
 
   constructor() {

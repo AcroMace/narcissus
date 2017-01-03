@@ -1,9 +1,16 @@
 'use strict';
 
+/**
+ * Wrapper class for the trained bot
+ * Can get a reply from the bot or specify a directory to train from
+ */
+
 const fs = require('fs');
 const rp = require('request-promise');
 const BotBrain = require('./botbrain.js');
 const MessagesParser = require('./messagesParser.js');
+
+const MESSAGES_FILE = '/html/messages.htm';
 
 
 class Narcissus {
@@ -19,7 +26,7 @@ class Narcissus {
 
     // Train the bot with Facebook data
     trainWithFacebookMessages(dataExportDirectory) {
-        let messagesParser = new MessagesParser(dataExportDirectory + '/html/messages.htm', ['Andy Cho']);
+        let messagesParser = new MessagesParser(dataExportDirectory + MESSAGES_FILE, ['Andy Cho']);
         this._trainChatbot(messagesParser.parse());
     }
 

@@ -1,5 +1,9 @@
 'use strict';
 
+/**
+ * A wrapper class for generating messages using Lunr
+ */
+
 const lunr = require('lunr');
 const fs = require('fs');
 const Message = require('./message.js');
@@ -8,7 +12,6 @@ const MAX_REPLIES_CONSIDERED = 100;
 const LUNR_INDEX_FILE = 'lunrIndex.json';
 const MESSAGES_FILE = 'indexedMessages.json';
 
-// A wrapper class for generating messages using Lunr
 
 class BotBrain {
 

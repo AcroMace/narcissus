@@ -1,3 +1,9 @@
+'use strict';
+
+/**
+ * View that allows the user to type in messages and displays the conversation
+ */
+
 $(document).ready(function() {
   const MAX_WAIT_BEFORE_REPLY = 1600; // Amount of time to wait before showing reply
   const NEW_BUBBLE_SCROLL_TIME = 300; // Amount of time it takes to scroll for a new bubble

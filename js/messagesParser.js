@@ -1,7 +1,9 @@
 'use strict';
 
-// Parses the messages.htm file from Facebook's data export
-// and creates an array of Message objects
+/**
+ * Parses the messages.htm file from Facebook's data export
+ * and creates an array of Message objects
+ */
 
 const fs = require('fs');
 const htmlparser = require('htmlparser2');
