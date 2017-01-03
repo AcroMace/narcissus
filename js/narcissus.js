@@ -5,8 +5,6 @@
  * Can get a reply from the bot or specify a directory to train from
  */
 
-const fs = require('fs');
-const rp = require('request-promise');
 const BotBrain = require('./botbrain.js');
 const ProfileExtractor = require('./profileExtractor.js');
 const MessagesParser = require('./messagesParser.js');
@@ -22,7 +20,8 @@ class Narcissus {
 
     // Get the response to a user message
     getReply(message) {
-        return this.brain.getReply(message);
+        const reply = this.brain.getReply(message);
+        return reply ? reply : '?';
     }
 
     // Train the bot with Facebook data

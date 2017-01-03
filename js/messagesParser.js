@@ -29,11 +29,10 @@ const Message = require('./message.js');
  *
  */
 const START_STATE = 1;
-const THREAD_START_STATE = 2;
-const WAIT_FOR_NAME_STATE = 3;
-const GET_NAME_STATE = 4;
-const WAIT_FOR_MESSAGE_STATE = 5;
-const GET_MESSAGE_STATE = 6;
+const WAIT_FOR_NAME_STATE = 2;
+const GET_NAME_STATE = 3;
+const WAIT_FOR_MESSAGE_STATE = 4;
+const GET_MESSAGE_STATE = 5;
 
 
 class MessagesParser {
@@ -63,7 +62,7 @@ class MessagesParser {
     const parser = new htmlparser.Parser({
       // Call the appropriate state change handlers when matching
       // open tags are opened
-      onopentag: function (name, attribs) {
+      onopentag: (name, attribs) => {
         if (name === 'div' && attribs.class === 'thread') {
           self._handleThreadStart(self);
         } else if (name === 'span' && attribs.class === 'user') {
@@ -72,10 +71,11 @@ class MessagesParser {
           self._handleMessageStart(self);
         }
       },
-      ontext: function (text) {
+      ontext: (text) => {
         self._handleText(self, text);
-      }
-    }, { decodeEntities: false });
+      }}, {
+        decodeEntities: false
+      });
 
     // Read the messages file
     // htmlparser2 supports streaming - this should probably use a stream instead

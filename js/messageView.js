@@ -26,8 +26,8 @@ $(document).ready(function() {
 
   // Create a chat bubble for yourself
   function createOwnChatBubble(message) {
-    return '<div class="chat-bubble-self-container">\
-      <div class="chat-bubble chat-bubble-self">' +
+    return '<div class="chat-bubble-self-container">' +
+      '<div class="chat-bubble chat-bubble-self">' +
       message +
       '</div></div>';
   }
@@ -56,10 +56,12 @@ $(document).ready(function() {
 
   // Show the bot's reply in the chat window
   function displayReply(reply) {
-    if (!reply || reply.length === 0) { return; }
+    if (!reply || reply.length === 0) {
+      return;
+    }
 
     // Display the reply after a second
-    setTimeout(function () {
+    setTimeout(() => {
       addChatBubble(createReplyChatBubble(reply));
     }, MAX_WAIT_BEFORE_REPLY * Math.random());
   }
@@ -67,7 +69,9 @@ $(document).ready(function() {
   // Send the message in the message bar if needed
   function sendMessage() {
     const message = getMessage();
-    if (message.length === 0) { return; }
+    if (message.length === 0) {
+      return;
+    }
     clearMessage();
 
     // Add the message you sent
@@ -78,16 +82,15 @@ $(document).ready(function() {
   }
 
   // The user hit the send button
-  sendButton.click(function () {
+  sendButton.click(() => {
     sendMessage();
   });
 
   // Listen to all events on the message bar
-  messageInput.keypress(function (e) {
+  messageInput.keypress((e) => {
     // The user hit enter
     if (e.which === 13) {
       sendMessage();
     }
   });
-
 });

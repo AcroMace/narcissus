@@ -6,7 +6,6 @@
 
 const lunr = require('lunr');
 const fs = require('fs');
-const Message = require('./message.js');
 
 const MAX_REPLIES_CONSIDERED = 100;
 const LUNR_INDEX_FILE = 'lunrIndex.json';
@@ -26,13 +25,13 @@ class BotBrain {
 
   // Train the bot to reply given the Message object
   train(message) {
-    var message = {
+    let messageCopy = {
       id: message.id,
       prompt: message.prompt,
-      reply: message.reply,
+      reply: message.reply
     };
-    this._messages[message.id] = message; // Save the message
-    this._lunrIndex.add(message); // Index the message
+    this._messages[message.id] = messageCopy; // Save the message
+    this._lunrIndex.add(messageCopy); // Index the message
   }
 
   // Get a reply from the bot given a prompt
@@ -41,14 +40,18 @@ class BotBrain {
     // using the score for each reply as its weight
     const searchResults = this._lunrIndex.search(prompt);
     const replies = searchResults.slice(0, MAX_REPLIES_CONSIDERED);
-    const totalScore = replies.map(obj => obj.score).reduce((a, b) => a + b, 0);
+    const totalScore = replies.map((obj) => obj.score).reduce((a, b) => a + b, 0);
     const randomScore = Math.random() * totalScore;
 
     // If nothing is found, try again with the longest word
     if (replies.length === 0) {
       // Sort words by descending word length and try to find some reply
       const words = prompt.split(' ').sort((a, b) => b.length - a.length);
-      for (const word in words) {
+      // Base case
+      if (words.length <= 1) {
+        return;
+      }
+      for (const word of words) {
         const replyForWord = this.getReply(word);
         if (replyForWord !== null) {
           return replyForWord;
@@ -58,7 +61,7 @@ class BotBrain {
     }
 
     // Get a weighted random reply
-    var currentScore = 0;
+    let currentScore = 0;
     for (const reply of replies) {
       currentScore += reply.score;
       if (randomScore <= currentScore) {
@@ -103,8 +106,11 @@ class BotBrain {
   _createLunrNewInstance() {
     // Just index the prompt field
     return lunr(function() {
+      // Using "this" here is required by lunr
+      /* eslint-disable no-invalid-this */
       this.field('prompt');
       this.ref('id');
+      /* eslint-enable no-invalid-this */
     });
   }
 
@@ -131,7 +137,7 @@ class BotBrain {
   // Serialize the object and save it with the file name
   _saveFile(fileName, obj) {
     const serializedObject = JSON.stringify(obj);
-    fs.writeFile(fileName, serializedObject, function (err) {
+    fs.writeFile(fileName, serializedObject, function(err) {
       if (err) {
         console.error('Could not save ' + fileName);
       } else {

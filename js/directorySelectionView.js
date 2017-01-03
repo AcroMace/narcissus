@@ -3,7 +3,6 @@
  */
 
 $(document).ready(function() {
-
   const electron = require('electron');
   const ipc = electron.ipcRenderer;
 
@@ -11,7 +10,7 @@ $(document).ready(function() {
 
   // When the user clicks the Select Directory button, ask the server
   // to show the directory selection dialogue
-  directorySelectionButton.click(function () {
+  directorySelectionButton.click(() => {
     ipc.send('select-archive-directory', 'yes');
   });
 
@@ -22,5 +21,4 @@ $(document).ready(function() {
     router.showTrainingView();
     $(document).trigger('request-training', arg[0]);
   });
-
 });

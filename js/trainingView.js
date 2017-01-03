@@ -5,10 +5,8 @@
  */
 
 $(document).on('request-training', function(event, dataExportDirectory) {
-
   setTimeout(function() {
     narcissus.trainWithFacebookMessages(dataExportDirectory);
     router.showChat();
   }, 100);
-
 });

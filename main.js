@@ -19,8 +19,6 @@ let mainWindow;
 app.commandLine.appendSwitch('js-flags', '--stack-size=32000');
 
 app.on('ready', function() {
-  console.log('ready');
-
   // Create the window and display the index page
   mainWindow = new BrowserWindow({
     width: 800,
@@ -28,13 +26,13 @@ app.on('ready', function() {
     minWidth: 400,
     minHeight: 300
   });
-  mainWindow.loadURL(`file://${__dirname}/index.html`)
+  mainWindow.loadURL(`file://${__dirname}/index.html`);
 
   // Select the directory with the exported data from Facebook
   ipc.on('select-archive-directory', (event, arg) => {
     dialog.showOpenDialog(mainWindow, {
       properties: ['openDirectory']
-    }, function (directories) {
+    }, function(directories) {
       event.sender.send('selected-directory', directories);
     });
   });

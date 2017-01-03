@@ -61,46 +61,44 @@ class ProfileExtractor {
 
   // Fetch the previous names of the user
   fetchNames() {
-    let self = this;
     let state = START_STATE;
     let names = [];
 
     const parser = new htmlparser.Parser({
-      onopentag: function (name, attribs) {
-        // We are about to receive the user's current name as a text
+      onopentag: (name, attribs) => {
         if (state === START_STATE && name === 'h1') {
+          // We are about to receive the user's current name as a text
           state = GET_CURRENT_NAME_STATE;
-        }
-        // We are about to receive a name as a text
-        else if (state === WAIT_FOR_NAME_STATE && name === 'li') {
+        } else if (state === WAIT_FOR_NAME_STATE && name === 'li') {
+          // We are about to receive a name as a text
           state = GET_NAME_STATE;
         }
       },
-      ontext: function (text) {
-        // We are about to receive the user's current name
+      ontext: (text) => {
         if (state === GET_CURRENT_NAME_STATE) {
+          // We are about to receive the user's current name
           names.push(text); // This is the current name
-          state = WAIT_FOR_PREVIOUS_NAMES_STATE
-        }
-        // We are about to receive the list of previous names
-        else if (state === WAIT_FOR_PREVIOUS_NAMES_STATE && text === 'Previous Names') {
+          state = WAIT_FOR_PREVIOUS_NAMES_STATE;
+        } else if (state === WAIT_FOR_PREVIOUS_NAMES_STATE && text === 'Previous Names') {
+          // We are about to receive the list of previous names
           state = WAIT_FOR_NAME_STATE;
-        }
-        // This is a line for one of the names of the user
-        else if (state === GET_NAME_STATE) {
+        } else if (state === GET_NAME_STATE) {
+          // This is a line for one of the names of the user
           // The name is formatted as "FULL NAME - FIRST NAME - LAST NAME - Numbers?"
           // We are only interested in the full name
           names.push(text.split(' - ')[0]);
           state = WAIT_FOR_NAME_STATE;
         }
       },
-      onclosetag: function(name) {
+      onclosetag: (name) => {
         // We fetched all the names - stop parsing
         if (state === WAIT_FOR_NAME_STATE && name === 'ul') {
           parser.parseComplete();
         }
       }
-    }, { decodeEntities: false });
+    }, {
+      decodeEntities: false
+    });
 
     // Start parsing
     parser.write(fs.readFileSync(this._dataExportDirectory + PROFILE_FILE, 'utf8'));
