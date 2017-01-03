@@ -15,9 +15,36 @@
 }
 
 #message-bar {
-  background-color: #CFD8DC;
-  padding: 0.5em;
+  border: 1px gray;
+  padding: 0;
   float: bottom;
+}
+
+#input-message {
+  border: 0;
+  border-radius: 0;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075)
+}
+
+#input-message::-webkit-input-placeholder {
+  color: #cfd8dc;
+  font-weight: normal;
+}
+
+#send-button {
+  width:100%;
+  background-color: #29b6f6;
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+}
+
+#send-button:hover {
+  background-color: #03a9f4;
+}
+
+#send-button:focus {
+  outline: 0;
 }
 
 /* Chat bubbles */
@@ -48,8 +75,8 @@
 }
 
 .chat-bubble-self {
-  color: #E1F5FE;
-  background-color: #03A9F4;
+  color: #e1f5fe;
+  background-color: #03a9f4;
 }
 
 .profile-picture {

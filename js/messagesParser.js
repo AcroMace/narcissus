@@ -128,7 +128,7 @@ class MessagesParser {
       // Save the last received message
       self._secondToLastMessage = self._lastMessage;
       // Save the new message
-      self._lastMessage = text;
+      self._lastMessage = text.trim();
       // Check to see if a prompt-reply pair was created
       // Someone else sent the second to last message
       const secondToLastMessageSentBySelf = self._checkIfOwnMessage(self, self._secondToLastName);
