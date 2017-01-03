@@ -10,6 +10,8 @@
 #messages-list-container {
   flex: 1;
   overflow: scroll;
+  padding-left: 1em;
+  padding-right: 0.5em;
 }
 
 #message-bar {
@@ -33,16 +35,28 @@
   display: inline-block;
   max-width: 64%;
   margin: 0.5em;
-  padding: 1em;
-  border-radius: 1em;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  padding-left: 12px;
+  padding-right: 12px;
+  border-radius: 12px;
 }
 
 .chat-bubble-other {
   color: #000;
-  background-color: #CFD8DC;
+  background-color: #f1f0f0;
 }
 
 .chat-bubble-self {
   color: #E1F5FE;
   background-color: #03A9F4;
+}
+
+.profile-picture {
+  object-fit: cover;
+  width: 28px;
+  height: 28px;
+  line-height: 16px;
+  border-radius: 2px;
+  border-radius: 50%;
 }
