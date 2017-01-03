@@ -30,6 +30,11 @@ class Narcissus {
         this._trainChatbot(messagesParser.parse());
     }
 
+    // Check if the bot was already trained
+    isAlreadyTrained() {
+        return this.brain.isAlreadyTrained();
+    }
+
     // Use the list of Message objects to train the chatbot
     _trainChatbot(messages) {
         for (const message of messages) {

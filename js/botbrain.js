@@ -16,6 +16,9 @@ const MESSAGES_FILE = 'indexedMessages.json';
 class BotBrain {
 
   constructor() {
+    // Flag to check if the bot was already trained (i.e. if the index and
+    // the messages file exist)
+    this._isAlreadyTrained = false;
     // Get a reference to the lunr instance
     this._lunrIndex = this._getLunrInstance();
     this._messages = this._getMessages();
@@ -62,6 +65,11 @@ class BotBrain {
     this._saveMessages();
   }
 
+  // Return true if the model is already trained
+  isAlreadyTrained() {
+    return this._isAlreadyTrained;
+  }
+
   // Reloads a previously saved Lunr instance or creates a new one and then returns the instance
   // This method is synchronous as it's called from the constructor
   _getLunrInstance() {
@@ -69,11 +77,13 @@ class BotBrain {
       // Parse the JSON and send it back
       let instance = lunr.Index.load(JSON.parse(fs.readFileSync(LUNR_INDEX_FILE, 'utf8')));
       console.log('Found old Lunr instance');
+      this._isAlreadyTrained = true;
       return instance;
     } catch (err) {
       // Couldn't read the file or it wasn't JSON - create a new Lunr instance
       console.log('Indexed messages not found or it was not JSON - creating new instance.');
       console.log(err);
+      this._isAlreadyTrained = false;
       return this._createLunrNewInstance();
     }
   }

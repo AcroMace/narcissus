@@ -9,7 +9,12 @@ var router = new (require('./js/router.js'))();
 
 $(document).ready(function() {
 
-  // Initially just show the directorySelection view
-  router.showDirectorySelection();
+  if (narcissus.isAlreadyTrained()) {
+    // If the bot is already trained, go straight into chat
+    router.showChat();
+  } else {
+    // If not, give the user instructions on how to train it
+    router.showDirectorySelection();
+  }
 
 });
