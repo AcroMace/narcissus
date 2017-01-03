@@ -14,6 +14,10 @@ const dialog = electron.dialog;
 
 let mainWindow;
 
+// Unfortunately having a large index for lunr results in
+// "Maximum call stack size exceeded" unless the size is increased
+app.commandLine.appendSwitch('js-flags', '--stack-size=32000');
+
 app.on('ready', function() {
   console.log('ready');
 
