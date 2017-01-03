@@ -8,6 +8,7 @@
 const fs = require('fs');
 const rp = require('request-promise');
 const BotBrain = require('./botbrain.js');
+const ProfileExtractor = require('./profileExtractor.js');
 const MessagesParser = require('./messagesParser.js');
 
 const MESSAGES_FILE = '/html/messages.htm';
@@ -26,6 +27,9 @@ class Narcissus {
 
     // Train the bot with Facebook data
     trainWithFacebookMessages(dataExportDirectory) {
+        let profileExtractor = new ProfileExtractor(dataExportDirectory);
+        profileExtractor.copyProfilePicture();
+
         let messagesParser = new MessagesParser(dataExportDirectory + MESSAGES_FILE, ['Andy Cho']);
         this._trainChatbot(messagesParser.parse());
     }
