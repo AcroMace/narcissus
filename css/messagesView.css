@@ -1,10 +1,10 @@
 /* Messages view */
 
 #messages-view {
-  visibility: hidden;
   display: flex;
   flex-direction: column;
   align-content: stretch;
+  overflow: hidden;
 }
 
 #messages-list-container {

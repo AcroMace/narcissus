@@ -1,31 +1,63 @@
 /* Window */
 
-html, body, #messages-view {
+html, body {
   font-family: 'Helvetica Neue', 'Segoe UI', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   overflow: hidden;
-  height: 100%;
   width: 100%;
+  height: 100%;
+}
+
+.view {
+  width: 100%;
+  height: 100%;
+  overflow: scroll;
+  visibility: hidden;
 }
 
 /* Directory selection view */
 
-#directory-selection-view {
-  width: 100%;
-  height: 100%;
-  background-color: #E8EAF6;
-  visibility: hidden;
+#directory-selection-container {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+#directory-selection-title {
+  text-align: center;
 }
 
 #directory-selection-instructions {
   font-size: 1.6em;
 }
 
+#directory-selection-instructions li {
+  margin: 0.4em;
+}
+
+#directory-selection-button-container {
+  text-align: center;
+}
+
+#directory-selection-button {
+  font-size: 1.6em;
+  text-align: center;
+  padding: 1em;
+  padding-top: 0.6em;
+  padding-bottom: 0.6em;
+  background-color: #29b6f6;
+}
+
 /* Training view */
 
 #training-view {
-  width: 100%;
-  height: 100%;
-  background-color: #E8EAF6;
-  visibility: hidden;
+  text-align: center;
+}
+
+#training-view-container {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 }

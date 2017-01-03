@@ -10,27 +10,30 @@
   <body>
 
     <!-- Page to select unarchived exported data directory from Facebook -->
-    <div id="directory-selection-view">
-      <div class="container">
+    <div class="view" id="directory-selection-view">
+      <div class="container" id="directory-selection-container">
+        <h1 id="directory-selection-title">Setup Instructions</h1>
         <ol id="directory-selection-instructions">
           <li>Go to <strong><a href="https://www.facebook.com/settings">Settings on Facebook</a></strong></li>
           <li>Click <strong><em>"Download a copy of your Facebook data."</em></strong></li>
           <li>After downloading the data, <strong>extract it</strong></li>
           <li>Select the folder that contains your exported data from Facebook. It should be formatted <strong><em>facebook-USERNAME</em></strong></li>
         </ol>
-        <button id="directory-selection-button" class="btn btn-success" type="button">Select Directory</button>
+        <div id="directory-selection-button-container">
+          <button id="directory-selection-button" class="btn btn-success" type="button">Select Directory</button>
+        </div>
       </div>
     </div>
 
     <!-- Page to view the bot being trained -->
-    <div id="training-view">
-      <div class="container">
+    <div class="view" id="training-view">
+      <div class="container" id="training-view-container">
         <h1>Training bot...</h1>
       </div>
     </div>
 
     <!-- Page to send messages to the bot -->
-    <div id="messages-view">
+    <div class="view" id="messages-view">
 
       <!-- Contains all the message bubbles -->
       <div id="messages-list-container">
