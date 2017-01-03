@@ -27,10 +27,13 @@ class Narcissus {
 
     // Train the bot with Facebook data
     trainWithFacebookMessages(dataExportDirectory) {
+        // Get the name and the profile picture
         let profileExtractor = new ProfileExtractor(dataExportDirectory);
         profileExtractor.copyProfilePicture();
+        const names = profileExtractor.fetchNames();
 
-        let messagesParser = new MessagesParser(dataExportDirectory + MESSAGES_FILE, ['Andy Cho']);
+        // Train the bot with the messages
+        let messagesParser = new MessagesParser(dataExportDirectory + MESSAGES_FILE, names);
         this._trainChatbot(messagesParser.parse());
     }
 
