@@ -110,6 +110,10 @@ class BotBrain {
       /* eslint-disable no-invalid-this */
       this.field('prompt');
       this.ref('id');
+      // Disable removing stopwords
+      // This results in a larger/slower index but it makes for a
+      // better chatting experience
+      this.pipeline.remove(lunr.stopWordFilter)
       /* eslint-enable no-invalid-this */
     });
   }
