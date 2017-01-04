@@ -7,6 +7,7 @@
  */
 
 const fs = require('fs');
+const path = require('path');
 const htmlparser = require('htmlparser2');
 
 const PROFILE_PICTURE_FILE = '/photos/profile.jpg';
@@ -55,8 +56,8 @@ class ProfileExtractor {
 
   // Copy the profile picture from the archive to the root directory
   copyProfilePicture() {
-    fs.createReadStream(this._dataExportDirectory + PROFILE_PICTURE_FILE)
-      .pipe(fs.createWriteStream(COPIED_PROFILE_PICTURE_FILE));
+    fs.createReadStream(path.join(this._dataExportDirectory, PROFILE_PICTURE_FILE))
+      .pipe(fs.createWriteStream(path.join(__dirname, '..', COPIED_PROFILE_PICTURE_FILE)));
   }
 
   // Fetch the previous names of the user
@@ -101,7 +102,7 @@ class ProfileExtractor {
     });
 
     // Start parsing
-    parser.write(fs.readFileSync(this._dataExportDirectory + PROFILE_FILE, 'utf8'));
+    parser.write(fs.readFileSync(path.join(this._dataExportDirectory, PROFILE_FILE), 'utf8'));
     parser.end();
 
     return names;

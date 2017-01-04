@@ -6,6 +6,7 @@
 
 const lunr = require('lunr');
 const fs = require('fs');
+const path = require('path');
 
 const MAX_REPLIES_CONSIDERED = 100;
 const LUNR_INDEX_FILE = 'lunrIndex.json';
@@ -89,7 +90,7 @@ class BotBrain {
   _getLunrInstance() {
     try {
       // Parse the JSON and send it back
-      let instance = lunr.Index.load(JSON.parse(fs.readFileSync(LUNR_INDEX_FILE, 'utf8')));
+      let instance = lunr.Index.load(JSON.parse(fs.readFileSync(path.join(__dirname, '..', LUNR_INDEX_FILE), 'utf8')));
       console.log('Found old Lunr instance');
       this._isAlreadyTrained = true;
       return instance;
@@ -127,7 +128,7 @@ class BotBrain {
   // Returns an empty object if there were no previous saved messages
   _getMessages() {
     try {
-      return JSON.parse(fs.readFileSync(MESSAGES_FILE, 'utf8'));
+      return JSON.parse(fs.readFileSync(path.join(__dirname, '..', MESSAGES_FILE), 'utf8'));
     } catch (err) {
       return {};
     }
@@ -141,7 +142,7 @@ class BotBrain {
   // Serialize the object and save it with the file name
   _saveFile(fileName, obj) {
     const serializedObject = JSON.stringify(obj);
-    fs.writeFile(fileName, serializedObject, function(err) {
+    fs.writeFile(path.join(__dirname, '..', fileName), serializedObject, function(err) {
       if (err) {
         console.error('Could not save ' + fileName);
       } else {
