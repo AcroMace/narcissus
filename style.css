@@ -1,0 +1,54 @@
+body {
+  font-family: 'Raleway', 'Helvetica Neue', 'Segoe UI', Helvetica, Arial, sans-serif;
+  text-align: center;
+  color: #212121;
+  background-color: #E3F2FD;
+}
+
+#title {
+  font-family: 'Cinzel', serif;
+}
+
+#icon {
+  min-width: 8em;
+  max-width: 20%;
+  margin-top: 4em;
+}
+
+#screenshot {
+  width: 80%;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-bottom: 4em;
+}
+
+#screenshot img {
+  width: 100%;
+  height: auto;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+.container {
+  width: 100%;
+}
+
+.description-container {
+  margin-top: 1em;
+}
+
+.btn-github {
+  background-color: #2196F3;
+  margin: 2em;
+  padding: 1em;
+  padding-top: 0.6em;
+  padding-bottom: 0.6em;
+  border: none;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+
+.btn-github:hover {
+  background-color: #1E88E5;
+}
