@@ -16,3 +16,10 @@ $(document).ready(function() {
     router.showDirectorySelection();
   }
 });
+
+// Open links through the browser (instead of redirecting in the app)
+// https://github.com/electron/electron/issues/1344
+$(document).on('click', 'a[href^="http"]', function(event) {
+  event.preventDefault();
+  require('electron').shell.openExternal(this.href);
+});

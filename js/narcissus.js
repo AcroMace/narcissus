@@ -25,15 +25,29 @@ class Narcissus {
     }
 
     // Train the bot with Facebook data
-    trainWithFacebookMessages(dataExportDirectory) {
-        // Get the name and the profile picture
+    // Sends updates on the progress to the callback
+    trainWithFacebookMessages(dataExportDirectory, updatesCallback, completionCallback) {
+        // Copy the user's profile picture to the current directory
+        updatesCallback({ type: 'profilePicture' });
         let profileExtractor = new ProfileExtractor(dataExportDirectory);
         profileExtractor.copyProfilePicture();
+
+        // Fetch the user's current and previous names
+        updatesCallback({ type: 'name' });
         const names = profileExtractor.fetchNames();
 
         // Train the bot with the messages
-        let messagesParser = new MessagesParser(dataExportDirectory + MESSAGES_FILE, names);
-        this._trainChatbot(messagesParser.parse());
+        updatesCallback({ type: 'messagesStart' });
+        const messagesFilePath = dataExportDirectory + MESSAGES_FILE;
+        let messagesParser = new MessagesParser(messagesFilePath, names, (count) => {
+            updatesCallback({
+                type: 'messageCount',
+                count: count
+            });
+        });
+        messagesParser.parse((messages) => {
+            this._trainChatbot(messages, completionCallback);
+        })
     }
 
     // Check if the bot was already trained
@@ -42,11 +56,12 @@ class Narcissus {
     }
 
     // Use the list of Message objects to train the chatbot
-    _trainChatbot(messages) {
+    _trainChatbot(messages, callback) {
         for (const message of messages) {
             this.brain.train(message);
         }
         this.brain.save();
+        callback();
     }
 }
 

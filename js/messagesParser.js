@@ -9,6 +9,10 @@ const fs = require('fs');
 const htmlparser = require('htmlparser2');
 const Message = require('./message.js');
 
+// How often the messages count updates should be sent
+// (An update is sent after each UPDATES_INTERVAL messages are parsed)
+const UPDATES_INTERVAL = 1024;
+
 /**
  * Finite State Machine Enumerators
  *
@@ -39,7 +43,9 @@ class MessagesParser {
 
   // messagesFile: The path (string) to the messages.htm file
   // ownNames: An array of strings of the names of yourself
-  constructor(messagesFile, ownNames) {
+  // updatesCallback: A callback to send the progress of how many messages
+  //                  habe been analyzed
+  constructor(messagesFile, ownNames, updatesCallback) {
     this._messagesFile = messagesFile;
     // This is used to check if a message was sent by yourself since it is not
     //  explicitly marked on a message - only the sender's name is known.
@@ -55,9 +61,11 @@ class MessagesParser {
     this._messages = [];
     // Message index number
     this._messageIndex = 0;
+    // Save the callback
+    this._updatesCallback = updatesCallback;
   }
 
-  parse() {
+  parse(callback) {
     let self = this;
     const parser = new htmlparser.Parser({
       // Call the appropriate state change handlers when matching
@@ -78,12 +86,13 @@ class MessagesParser {
       });
 
     // Read the messages file
-    // htmlparser2 supports streaming - this should probably use a stream instead
-    parser.write(fs.readFileSync(this._messagesFile, 'utf8'));
-    // The parsing can end immediately after since readFileSync reads the entire
-    // file synchronously - there's no more data that needs to be parsed
-    parser.end();
-    return self._messages;
+    fs.readFile(this._messagesFile, 'utf8', (err, data) => {
+      if (err) throw err;
+
+      parser.write(data);
+      parser.end();
+      callback(self._messages);
+    });
   }
 
   // Reset the state variables
@@ -137,6 +146,11 @@ class MessagesParser {
       if (lastMessageSentBySelf && !secondToLastMessageSentBySelf && self._secondToLastName !== null) {
         self._messages.push(new Message(self._messageIndex, self._secondToLastMessage, self._lastMessage));
         self._messageIndex++;
+
+        // Send a progress update
+        if (self._messageIndex % UPDATES_INTERVAL === 0) {
+          self._updatesCallback(self._messageIndex);
+        }
       }
       self._state = WAIT_FOR_NAME_STATE;
     }
