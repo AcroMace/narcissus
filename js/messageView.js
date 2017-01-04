@@ -5,7 +5,8 @@
  */
 
 $(document).ready(function() {
-  const MAX_WAIT_BEFORE_REPLY = 1600; // Amount of time to wait before showing reply
+  const MIN_WAIT_BEFORE_REPLY = 400; // Minimum amount of time to wait before showing reply
+  const MAX_WAIT_BEFORE_REPLY = 1200; // Maximum amount of time to wait before showing reply
   const NEW_BUBBLE_SCROLL_TIME = 800; // Amount of time it takes to scroll for a new bubble
 
   // jQuery selectors
@@ -63,7 +64,7 @@ $(document).ready(function() {
     // Display the reply after a second
     setTimeout(() => {
       addChatBubble(createReplyChatBubble(reply));
-    }, MAX_WAIT_BEFORE_REPLY * Math.random());
+    }, MIN_WAIT_BEFORE_REPLY + (MAX_WAIT_BEFORE_REPLY - MIN_WAIT_BEFORE_REPLY) * Math.random());
   }
 
   // Send the message in the message bar if needed
