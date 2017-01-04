@@ -1,3 +1,7 @@
+/**
+ * General
+ */
+
 body {
   font-family: 'Raleway', 'Helvetica Neue', 'Segoe UI', Helvetica, Arial, sans-serif;
   text-align: center;
@@ -5,9 +9,25 @@ body {
   background-color: #E3F2FD;
 }
 
+.container {
+  width: 100%;
+}
+
+/**
+ * Text
+ */
+
 #title {
   font-family: 'Cinzel', serif;
 }
+
+.description-container {
+  margin-top: 1em;
+}
+
+/**
+ * Images
+ */
 
 #icon {
   min-width: 8em;
@@ -31,24 +51,60 @@ body {
   margin-bottom: 1em;
 }
 
-.container {
-  width: 100%;
-}
+/**
+ * Buttons
+ */
 
-.description-container {
-  margin-top: 1em;
-}
-
-.btn-github {
+.btn-narcissus {
   background-color: #2196F3;
   margin: 2em;
   padding: 1em;
   padding-top: 0.6em;
   padding-bottom: 0.6em;
+  margin-left: 0.2em;
+  margin-right: 0.2em;
   border: none;
   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
 
-.btn-github:hover {
+.btn-narcissus:hover {
   background-color: #1E88E5;
+}
+
+/**
+ * IcoMoon
+ */
+
+@font-face {
+  font-family: 'icomoon';
+  src:  url('fonts/icomoon.eot?6cvkad');
+  src:  url('fonts/icomoon.eot?6cvkad#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?6cvkad') format('truetype'),
+    url('fonts/icomoon.woff?6cvkad') format('woff'),
+    url('fonts/icomoon.svg?6cvkad#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-box-add:before {
+  content: "\e95e";
+}
+
+.icon-github:before {
+  content: "\eab0";
 }
