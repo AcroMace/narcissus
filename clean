@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+# Clean the generated files
+rm indexedMessages.json
+rm lunrIndex.json
